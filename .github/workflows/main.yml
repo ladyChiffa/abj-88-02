@@ -1,0 +1,44 @@
+name: CI pipeline
+on: [push]
+
+jobs:
+  check: 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - name: Install dependencies
+        run: npm install
+      - name: Linter
+        run: npm run lint
+  test: 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm install
+      - name: Run tests
+        run: npm test
+  deploy:
+    needs: [eslint, test]
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: echo "Deploying into production..."
+      - name: Install dependencies
+        run: npm install
+      - name: Run deploy
+        run: npm build
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'dist'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
