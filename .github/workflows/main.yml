@@ -1,6 +1,11 @@
 name: CI pipeline
 on: [push]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   check: 
     runs-on: ubuntu-latest
