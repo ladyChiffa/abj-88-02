@@ -25,7 +25,11 @@ module.exports = {
                     MiniCSSExtractPlugin.loader, // в обратном порядке - сначала обрабатывает css-loader, потом плагин
                     'css-loader'
                 ]
-            }
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: "asset/resource",
+            },
         ]
     },
     plugins: [

@@ -1,3 +1,4 @@
+import goblin from './goblin.png';
 import './gamefield.css';
 
 export default class GameField {
@@ -6,37 +7,55 @@ export default class GameField {
             element = document.querySelector(element);
         }
         this._element = element;
+        this._dimension = 4;
         this._cells = [];
-
-        
-        const fieldRows = element.querySelectorAll('.gamerow');
-        for (let row of fieldRows){
-            this._cells.push([]);
-            const cells = row.querySelectorAll('.gamecell');
-
-            for (let cell of cells) {
-                this._cells[this._cells.length - 1].push(cell);
-            }
-        }
-
-        this._goblin = element.querySelector('.goblin');
-        console.log(this._goblin);
+        this._currentCell = {x: undefined, y: undefined};
+        this._goblin = null;
 
         this.moveGoblin = this.moveGoblin.bind(this);
+
+        this.renderGameField();
+        this.renderGoblin();
     }
 
-    getRandom4() {
-        const min = 0;
-        const max = 3;
-        return Math.floor(Math.random() * (max - min + 1) + min);
+    renderGameField() {
+        for(let i = 0; i < this._dimension; i++) {
+            // render row
+            this._cells[i] = [];
+            
+            const row = document.createElement('div');
+            row.classList = 'gamerow';
+            this._element.append(row);
+
+            for (let j = 0; j < this._dimension; j++) {
+                // render cell
+                const cell = document.createElement('div');
+                cell.classList = 'gamecell';
+                row.append(cell);
+                this._cells[i][j] = cell;
+            }
+        }
+    }
+
+    renderGoblin() {
+        this._goblin = document.createElement('img');
+        this._goblin.src = goblin;
+        this._goblin.classList = 'goblin';
+        this.alt = 'Im here!';
     }
 
     moveGoblin() {
-        const x = this.getRandom4();
-        const y = this.getRandom4();
-        const cell = this._cells[x][y];
-        this._goblin.parentElement.removeChild(this._goblin);
-        cell.appendChild(this._goblin);
+        let x;
+        let y;
+        do {
+            x = Math.floor(Math.random() * this._dimension);;
+            y = Math.floor(Math.random() * this._dimension);;
+        } while (this._currentCell.x == x && this._currentCell.y == y);
+        this._currentCell.x = x;
+        this._currentCell.y = y;
+
+        this._goblin.remove();
+        this._cells[this._currentCell.x][this._currentCell.y].append(this._goblin);
     }
 
 }

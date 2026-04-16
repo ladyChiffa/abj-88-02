@@ -1,5 +1,5 @@
 {
-  "name": "ajs-2026-08-math",
+  "name": "abj-88-02",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ladyChiffa/ajs-2026-08-math.git"
+    "url": "git+https://github.com/ladyChiffa/abj-88-02.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ladyChiffa/ajs-2026-08-math/issues"
+    "url": "https://github.com/ladyChiffa/abj-88-02/issues"
   },
-  "homepage": "https://github.com/ladyChiffa/ajs-2026-08-math#readme",
+  "homepage": "https://github.com/ladyChiffa/abj-88-02#readme",
   "devDependencies": {
     "@babel/cli": "^7.28.6",
     "@babel/core": "^7.29.0",
